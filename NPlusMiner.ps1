@@ -345,7 +345,7 @@ $TabControl.Controls.AddRange(@($RunPage,$SwitchingPage,$ConfigPage,$Estimations
     $LabelBTCD.location                 = New-Object System.Drawing.Point(370,2)
     $LabelBTCD.Font                     = 'Microsoft Sans Serif,14'
     $LabelBTCD.TextAlign                = "MiddleRight"
-    $LabelBTCD.ForeColor                = "Green"
+    $LabelBTCD.ForeColor                = "Blue"
     $MainFormControls += $LabelBTCD
 
     $LabelBTCPrice                          = New-Object system.Windows.Forms.Label
