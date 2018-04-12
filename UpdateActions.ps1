@@ -23,6 +23,6 @@ version:        2.3
 version date:   20180408
 #>
 
-$Config | Add-Member @{Autoupdate = $true}
-$Config | Add-Member @{THISISATEST = $true}
+$Config | Add-Member @{Autoupdate = $true} -force
+$Config | Add-Member @{THISISATEST = $true} -force
 Write-Config -ConfigFile $ConfigFile -Config $Config
