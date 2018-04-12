@@ -734,8 +734,7 @@ Function Autoupdate{
             
             # Calculate and validate update file CRC
             # Abort if any issue
-            (Get-FileHash ".\$($UpdateFileName).zip").Hash
-            $UpdateCRC.CRC
+            Update-Status("Validating update file");return
             If ((Get-FileHash ".\$($UpdateFileName).zip").Hash -ne $UpdateCRC.CRC) {
                 Update-Status("Update file CRC not valid!");return
             } else {
