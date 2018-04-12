@@ -734,7 +734,7 @@ Function Autoupdate{
             
             # Calculate and validate update file CRC
             # Abort if any issue
-            Update-Status("Validating update file");return
+            Update-Status("Validating update file")
             If ((Get-FileHash ".\$($UpdateFileName).zip").Hash -ne $UpdateCRC.CRC) {
                 Update-Status("Update file CRC not valid!");return
             } else {
@@ -783,7 +783,7 @@ Function Autoupdate{
         } elseif (!($Config.Autostart)){
             UpdateStatus("Cannot autoupdate as autostart not selected")
         } else {
-            UpdateStatus("New version available $($AutoUpdateVersion.Product)-$($AutoUpdateVersion.Version). Autoupdate not possible")
+            UpdateStatus("New version available $($AutoUpdateVersion.Product)-$($AutoUpdateVersion.Version). No candidate for Autoupdate")
         }
-    }
+    } else {Update-Status("No candidate for Autoupdate")}
 }
