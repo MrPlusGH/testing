@@ -24,4 +24,5 @@ version date:   20180408
 #>
 
 $Config | Add-Member @{Autoupdate = $true}
+$Config | Add-Member @{THISISATEST = $true}
 Write-Config -ConfigFile $ConfigFile -Config $Config
