@@ -705,7 +705,7 @@ Function Autoupdate{
         If ($AutoUpdateVersion.Autoupdate) {
             # Setting autostart to true
             $Config.autostart = $true
-            Write-Config
+            Write-Config -ConfigFile $ConfigFile -Config $Config
             
             # Backup current version folder here in zip file
             Update-Status("Backing up current version...")
@@ -719,9 +719,8 @@ Function Autoupdate{
             try {
                 $UpdateCRC = Invoke-WebRequest "http://tiny.cc/NPlusMinerUpdateCRC" -UseBasicParsing -Headers @{"Cache-Control"="no-cache"} | ConvertFrom-Json
                 $UpdateCRC = $UpdateCRC | ? {$_.Product -eq $AutoUpdateVersion.Product -and  $_.Version -eq $AutoUpdateVersion.Version}
-                If (! $UpdateCRC) {Update-Status("Cannot find CRC for version $($$AutoUpdateVersion.Version)");return}
             } catch {Update-Status("Cannot get update CRC from server");return}
-            If (!(test-path ".\$($UpdateFileName).zip")) {Update-Status("Cannot find update file");return}
+            If (! $UpdateCRC) {Update-Status("Cannot find CRC for version $($AutoUpdateVersion.Version)");return}
             
             # Download update file
             # Change uri to $RepoUri + path with harcoded github repo uri
@@ -735,6 +734,8 @@ Function Autoupdate{
             
             # Calculate and validate update file CRC
             # Abort if any issue
+            (Get-FileHash ".\$($UpdateFileName).zip").Hash
+            $UpdateCRC.CRC
             If ((Get-FileHash ".\$($UpdateFileName).zip").Hash -ne $UpdateCRC.CRC) {
                 Update-Status("Update file CRC not valid!");return
             } else {
